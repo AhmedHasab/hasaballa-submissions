@@ -63,178 +63,197 @@
   <label>Company / Team <small class="req">*</small></label>
   <input type="text" name="company" required form="devForm">
 
-  <label>Platform</label>
-  <select name="platform" form="devForm">
-    <option value="">-- Select --</option>
-    <option value="Freelancer">Freelancer</option>
-    <option value="Guru">Guru</option>
-    <option value="Upwork">Upwork</option>
-  </select>
+<label for="platform">Platform</label>
+<select name="platform" id="platform" form="devForm" required>
+  <option value="" disabled selected>-- Select Platform --</option>
+  <option value="Freelancer">Freelancer</option>
+  <option value="Guru">Guru</option>
+  <option value="Upwork">Upwork</option>
+</select>
 
-  <!-- ======== FORM START ======== -->
-  <form class="card" id="devForm">
-    <h3>📜 General Conditions (Required)</h3>
 
-    <!-- 1..16 (الراديو فوق - التعليق تحت اختياري) -->
-    <div class="cond-block">
-      <label>1) Scope Integration <small class="req">*</small></label>
-      <p class="muted">All milestones must be fully compatible and interconnected. Tasks 1 to 3 are mandatory in every milestone.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond1_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond1_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond1_comment"></textarea>
+<!-- ======== FORM START ======== -->
+<form class="card" id="devForm">
+  <h3>📜 Hasaballa AI – Contract Conditions (16 Clauses)</h3>
+
+  <!-- Clause 1 -->
+  <div class="cond-block">
+    <label>1) Offline Platform Requirement <small class="req">*</small></label>
+    <p class="muted">The platform must run 100% offline (no Internet, no subscriptions, no credits) without reliance on any external API, server, or cloud service, and perform at full capacity without lag on the client’s device with the documented specifications.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond1" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond1" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond1_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>2) Reference Quality Enforcement <small class="req">*</small></label>
-      <p class="muted">Each milestone must deliver output equal to or better than the reference videos. Lower quality will be rejected; developer must revise at no extra cost.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond2_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond2_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond2_comment"></textarea>
+  <!-- Clause 2 -->
+  <div class="cond-block">
+    <label>2) Client-Side Validation <small class="req">*</small></label>
+    <p class="muted">Delivery is accepted only after successful testing on the client’s device with the documented specifications.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond2" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond2" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond2_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>3) Client Approval Requirement <small class="req">*</small></label>
-      <p class="muted">No milestone is approved without client confirmation based on quality and completeness.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond3_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond3_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond3_comment"></textarea>
+  <!-- Clause 3 -->
+  <div class="cond-block">
+    <label>3) Escrow Payment <small class="req">*</small></label>
+    <p class="muted">The full budget (7500 USD) remains fully escrowed on Upwork, Freelancer, Guru, or equivalent platform (or direct escrow account) and is released only after complete delivery at required quality.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond3" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond3" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond3_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>4) Unlimited Revisions Within Scope <small class="req">*</small></label>
-      <p class="muted">Unlimited revisions within scope until desired quality is achieved. Milestone must meet all functional & visual requirements.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond4_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond4_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond4_comment"></textarea>
+  <!-- Clause 4 -->
+  <div class="cond-block">
+    <label>4) Performance Bonus <small class="req">*</small></label>
+    <p class="muted">Client reserves the right to provide an optional bonus of 500–1000 USD after full delivery depending on quality and satisfaction.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond4" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond4" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond4_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>5) Platform Must Be 100% Offline <small class="req">*</small></label>
-      <p class="muted">Runs entirely offline on client device; no paid APIs, cloud, or online services.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond5_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond5_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond5_comment"></textarea>
+  <!-- Clause 5 -->
+  <div class="cond-block">
+    <label>5) Penalty & Deterrence <small class="req">*</small></label>
+    <p class="muted">No withdrawal without mutual agreement. Compensation applies: 1000 USD (first 2 weeks), 1500 USD (weeks 3–9), 2000 USD (after week 9 until week 16). All payments remain escrowed until final delivery.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond5" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond5" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond5_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>6) Technology Requirements <small class="req">*</small></label>
-      <p class="muted">Build with PyTorch, FFmpeg, (optional) OpenCV, Whisper.cpp, CUDA (offline only). No 3rd-party APIs/cloud/subscriptions.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond6_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond6_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond6_comment"></textarea>
+  <!-- Clause 6 -->
+  <div class="cond-block">
+    <label>6) Documented Quality <small class="req">*</small></label>
+    <p class="muted">Quality is documented in the official specification file and reference videos (minimum acceptable quality).</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond6" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond6" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond6_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>7) Local Device Performance Guarantee <small class="req">*</small></label>
-      <p class="muted">Must run smoothly on RTX 5090, 64GB RAM, 4TB SSD without lag/crashes.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond7_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond7_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond7_comment"></textarea>
+  <!-- Clause 7 -->
+  <div class="cond-block">
+    <label>7) Implementation Period <small class="req">*</small></label>
+    <p class="muted">The maximum implementation period is 16 weeks.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond7" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond7" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond7_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>8) IP Ownership <small class="req">*</small></label>
-      <p class="muted">Client retains 100% IP on code/models/assets/outputs after full payment. No reuse/share/sell.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond8_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond8_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond8_comment"></textarea>
+  <!-- Clause 8 -->
+  <div class="cond-block">
+    <label>8) Developer Freedom <small class="req">*</small></label>
+    <p class="muted">Developer may choose tools and workflows, provided required results and quality are achieved.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond8" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond8" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond8_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>9) NDA <small class="req">*</small></label>
-      <p class="muted">No disclosure/replication during or after contract.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond9_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond9_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond9_comment"></textarea>
+  <!-- Clause 9 -->
+  <div class="cond-block">
+    <label>9) Final Platform Approval <small class="req">*</small></label>
+    <p class="muted">Client will approve only the final integrated platform, not partial milestones. Internal milestones are at developer’s discretion.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond9" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond9" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond9_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>10) Backup Requirement <small class="req">*</small></label>
-      <p class="muted">At each milestone end, provide a local backup of code/models/settings.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond10_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond10_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond10_comment"></textarea>
+  <!-- Clause 10 -->
+  <div class="cond-block">
+    <label>10) Unlimited Revisions <small class="req">*</small></label>
+    <p class="muted">Unlimited modifications until the platform fully meets documented quality standards.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond10" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond10" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond10_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>11) Post-Delivery Support <small class="req">*</small></label>
-      <p class="muted">2 weeks free support after final milestone for minor bugs.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond11_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond11_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond11_comment"></textarea>
+  <!-- Clause 11 -->
+  <div class="cond-block">
+    <label>11) Ownership Rights <small class="req">*</small></label>
+    <p class="muted">All source code, AI models, assets, and deliverables become exclusive property of the client upon payment.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond11" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond11" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond11_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>12) Custom Development Requirement <small class="req">*</small></label>
-      <p class="muted">All components must be custom-built; no commercial/AIaaS/cloud/licensed services.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond12_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond12_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond12_comment"></textarea>
+  <!-- Clause 12 -->
+  <div class="cond-block">
+    <label>12) Final Delivery Definition <small class="req">*</small></label>
+    <p class="muted">Delivery is complete only with full source code, working installer (EXE), and user manual (PDF).</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond12" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond12" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond12_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>13) Termination for Quality Breach <small class="req">*</small></label>
-      <p class="muted">If minimum quality not met after multiple revisions, client may cancel without penalty; milestone is rejected.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond13_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond13_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond13_comment"></textarea>
+  <!-- Clause 13 -->
+  <div class="cond-block">
+    <label>13) Post-Delivery Support <small class="req">*</small></label>
+    <p class="muted">Developer provides 4 weeks of free support to fix bugs or errors after delivery.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond13" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond13" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond13_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>14) Milestone Delivery & Integration <small class="req">*</small></label>
-      <p class="muted">Delivered in phases, but final delivery must be one integrated system. Standalone tools not accepted.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond14_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond14_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond14_comment"></textarea>
+  <!-- Clause 14 -->
+  <div class="cond-block">
+    <label>14) Delay Penalty <small class="req">*</small></label>
+    <p class="muted">Any delay beyond 16 weeks incurs 250 USD/week penalty, capped at 2000 USD.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond14" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond14" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond14_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>15) Payment & Retention <small class="req">*</small></label>
-      <p class="muted">50% on milestone approval; 50% retained until fully integrated platform is delivered and tested on client device.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond15_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond15_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond15_comment"></textarea>
+  <!-- Clause 15 -->
+  <div class="cond-block">
+    <label>15) No Demo Deliveries <small class="req">*</small></label>
+    <p class="muted">Any incomplete, demo, or non-compliant delivery is not considered final and will not trigger payment release.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond15" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond15" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond15_comment"></textarea>
+  </div>
 
-    <div class="cond-block">
-      <label>16) Risk Management <small class="req">*</small></label>
-      <p class="muted">If the final integrated platform is not delivered, client may retain pending balances and keep delivered code without further payment.</p>
-      <div class="radio-group">
-        <label><input type="radio" name="cond16_agree" value="Agree" required> Agree</label>
-        <label><input type="radio" name="cond16_agree" value="Disagree" required> Disagree</label>
-      </div>
-      <label>Add comment (optional)</label><textarea name="cond16_comment"></textarea>
+  <!-- Clause 16 -->
+  <div class="cond-block">
+    <label>16) Confidentiality <small class="req">*</small></label>
+    <p class="muted">Developer must maintain confidentiality of project details, code, and assets; no sharing with third parties.</p>
+    <div class="radio-group">
+      <label><input type="radio" name="cond16" value="Agree" required> Agree</label>
+      <label><input type="radio" name="cond16" value="Disagree" required> Disagree</label>
     </div>
+    <label>Add comment (optional)</label><textarea name="cond16_comment"></textarea>
+  </div>
+
+</form>
+<!-- ======== FORM END ======== -->
 
     <!-- ================= Developer Questionnaire (Technical) ================= -->
     <div class="card">
@@ -312,7 +331,7 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
+
 /* ====================== EmailJS CONFIG ====================== */
 /* بدّل القيم الثلاثة دول من حسابك في EmailJS */
 
