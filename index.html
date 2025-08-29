@@ -43,8 +43,8 @@
     <p>A full detailed document of the platform (all tasks, sub-tasks, and requirements) will be provided to the selected developer/team.</p>
   </div>
 
-  <!-- ======== FORM واحد فقط ======== -->
-  <form class="card" id="devForm" novalidate>
+  <!-- ======== FORM (بدون novalidate) ======== -->
+  <form class="card" id="devForm">
 
     <!-- Basic Info -->
     <label>Your Name <small class="req">*</small></label>
@@ -62,249 +62,253 @@
     </select>
 
     <h3>📜 Hasaballa AI – Contract Conditions (16 Clauses)</h3>
-<!-- Clause 1 -->
-<div class="cond-block">
-  <label>1) Offline Platform Requirement <small class="req">*</small></label>
-  <p class="muted">
-    The platform must run 100% offline (no Internet, no subscriptions, no credits) without reliance on any external API, server, or cloud service and perform at full capacity without lag on the client’s device with the following specifications:<br>
-    - AMD Ryzen™ 9 9955HX 3.50 GHz Fire Range<br>
-    - Nvidia GeForce® RTX™ 5090 24GB GDDR7<br>
-    - 64GB DDR5 RAM + 4TB SSD NVMe<br>
-    - Display 16" WQXGA (2560x1600) 300Hz<br>
-    - Windows 11 Home 64-bit
-  </p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond1" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond1" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond1_comment"></textarea>
-</div>
 
-<!-- Clause 2 -->
-<div class="cond-block">
-  <label>2) Client-Side Validation <small class="req">*</small></label>
-  <p class="muted">Delivery will only be considered accepted after the platform is successfully tested on the client’s device with the documented specifications.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond2" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond2" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond2_comment"></textarea>
-</div>
-
-<!-- Clause 3 -->
-<div class="cond-block">
-  <label>3) Escrow Payment <small class="req">*</small></label>
-  <p class="muted">The full project budget is 7500 USD. It may be funded in one, two, or three installments, but will remain fully escrowed on Upwork, Freelancer, Guru, or any equivalent escrow-based platform (or a direct escrow account) and will not be released until the platform is delivered completely and meets the required quality.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond3" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond3" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond3_comment"></textarea>
-</div>
-
-<!-- Clause 4 -->
-<div class="cond-block">
-  <label>4) Performance Bonus <small class="req">*</small></label>
-  <p class="muted">The client reserves the right to provide an optional performance bonus of 500–1000 USD after full delivery of the platform, depending on quality and overall satisfaction.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond4" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond4" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond4_comment"></textarea>
-</div>
-
-<!-- Clause 5 -->
-<div class="cond-block">
-  <label>5) Penalty and Deterrence <small class="req">*</small></label>
-  <p class="muted">
-    Both parties commit not to withdraw from the project without mutual written agreement.<br>
-    Any unilateral withdrawal constitutes a material breach and is subject to compensation as follows:<br>
-    * Withdrawal within the first two weeks: 1000 USD<br>
-    * Withdrawal between week 3 and week 9: 1500 USD<br>
-    * Withdrawal after week 9 until week 16: 2000 USD<br>
-    Any withdrawal or delay is considered a double loss for the client (time + opportunity) and may result in additional compensation through arbitration.<br>
-    All payments remain fully escrowed until final delivery.<br>
-    The developer acknowledges that withdrawal or non-compliance will directly harm their professional rating and reputation on the platform.
-  </p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond5" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond5" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond5_comment"></textarea>
-</div>
-
-<!-- Clause 6 -->
-<div class="cond-block">
-  <label>6) Documented Quality <small class="req">*</small></label>
-  <p class="muted">The required quality is documented in writing in the official Hasaballa AI specification file and visually documented through reference videos, which represent the minimum acceptable quality.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond6" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond6" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond6_comment"></textarea>
-</div>
-
-<!-- Clause 7 -->
-<div class="cond-block">
-  <label>7) Implementation Period <small class="req">*</small></label>
-  <p class="muted">The maximum implementation period is 16 weeks.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond7" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond7" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond7_comment"></textarea>
-</div>
-
-<!-- Clause 8 -->
-<div class="cond-block">
-  <label>8) Developer Freedom <small class="req">*</small></label>
-  <p class="muted">The developer has full freedom to select tools and internal workflows, provided that the required results and quality are achieved.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond8" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond8" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond8_comment"></textarea>
-</div>
-
-<!-- Clause 9 -->
-<div class="cond-block">
-  <label>9) Final Platform Approval <small class="req">*</small></label>
-  <p class="muted">The client is not obligated to review or approve partial milestones. The client reserves the right to review and approve only the final, complete platform. Internal milestone breakdowns remain at the developer’s discretion.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond9" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond9" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond9_comment"></textarea>
-</div>
-
-<!-- Clause 10 -->
-<div class="cond-block">
-  <label>10) Unlimited Revisions <small class="req">*</small></label>
-  <p class="muted">The developer commits to unlimited modifications until the platform fully meets the documented quality standards, both written and visual.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond10" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond10" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond10_comment"></textarea>
-</div>
-
-<!-- Clause 11 -->
-<div class="cond-block">
-  <label>11) Ownership Rights <small class="req">*</small></label>
-  <p class="muted">All source code, AI models, assets, and deliverables become the exclusive property of the client upon payment. The developer may not reuse, resell, or redistribute them in any form.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond11" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond11" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond11_comment"></textarea>
-</div>
-
-<!-- Clause 12 -->
-<div class="cond-block">
-  <label>12) Final Delivery Definition <small class="req">*</small></label>
-  <p class="muted">
-    Delivery is considered complete only when the client receives:<br>
-    - The full source code<br>
-    - A working installer (EXE or equivalent) for direct use<br>
-    - A user manual (PDF or equivalent) explaining setup and usage
-  </p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond12" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond12" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond12_comment"></textarea>
-</div>
-
-<!-- Clause 13 -->
-<div class="cond-block">
-  <label>13) Post-Delivery Support <small class="req">*</small></label>
-  <p class="muted">The developer provides a minimum of 4 weeks of free technical support to fix bugs or errors after delivery. Additional development beyond this scope will require a separate contract.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond13" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond13" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond13_comment"></textarea>
-</div>
-
-<!-- Clause 14 -->
-<div class="cond-block">
-  <label>14) Delay Penalty <small class="req">*</small></label>
-  <p class="muted">Any delay beyond the 16-week maximum incurs a penalty of 250 USD per week, capped at 2000 USD, deducted from the developer’s payment.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond14" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond14" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond14_comment"></textarea>
-</div>
-
-<!-- Clause 15 -->
-<div class="cond-block">
-  <label>15) Partial or Demo Deliveries <small class="req">*</small></label>
-  <p class="muted">Any incomplete, demo, or non-compliant delivery shall not be considered final delivery and will not trigger payment release.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond15" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond15" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond15_comment"></textarea>
-</div>
-
-<!-- Clause 16 -->
-<div class="cond-block">
-  <label>16) Confidentiality <small class="req">*</small></label>
-  <p class="muted">The developer must maintain strict confidentiality regarding the project details, code, assets, and client information, and may not share them with third parties.</p>
-  <div class="radio-group">
-    <label><input type="radio" name="cond16" value="Agree" required> Agree</label>
-    <label><input type="radio" name="cond16" value="Disagree" required> Disagree</label>
-  </div>
-  <label>Add comment (optional)</label><textarea name="cond16_comment"></textarea>
-</div>
-
-
-
-    <h3>📝 Developer Questionnaire (Technical)</h3>
-   <label>Are you a team? <small class="req">*</small></label>
-      <div class="radio-group"><label><input type="radio" name="is_team" value="Yes" required> Team</label><label><input type="radio" name="is_team" value="No" required> Solo</label></div>
-
-      <label>1- If Team: list members & roles <small class="req">*</small></label><textarea name="team_details" required></textarea>
-      <label>2- Have you worked with AI tools before? (brief) <small class="req">*</small></label><textarea name="ai_experience" required></textarea>
-      <label>3- Which AI tools do you have strong experience with? <small class="req">*</small></label><textarea name="ai_tools" required></textarea>
-      <label>4- Tools for ultra-realistic image generation...? <small class="req">*</small></label><textarea name="tools_imagegen" required></textarea>
-      <label>5- Tools to ensure 100% correct Arabic text? <small class="req">*</small></label><textarea name="tools_arabictext" required></textarea>
-      <label>6- Tools for identity lock? <small class="req">*</small></label><textarea name="tools_identity" required></textarea>
-      <label>7- Tools for audio enhancement? <small class="req">*</small></label><textarea name="tools_audioenhance" required></textarea>
-      <label>8- Tools for voice cloning & generation? <small class="req">*</small></label><textarea name="tools_voiceclone" required></textarea>
-      <label>9- Tools for Arabic dialects? <small class="req">*</small></label><textarea name="tools_dialects" required></textarea>
-      <label>10- Tools for singing voice generation? <small class="req">*</small></label><textarea name="tools_singing" required></textarea>
-      <label>11- Tools for integrated sound library? <small class="req">*</small></label><textarea name="tools_soundlib" required></textarea>
-      <label>12- Tools for cinematic image animation? <small class="req">*</small></label><textarea name="tools_animation" required></textarea>
-      <label>13- Worked with SkyReels V2? Opinion?</label><textarea name="tools_skyreels"></textarea>
-      <label>14- Tools for lip-sync? <small class="req">*</small></label><textarea name="tools_lipsync" required></textarea>
-      <label>15- Tools for Chat Window analysis/orchestration? <small class="req">*</small></label><textarea name="tools_chatwindow" required></textarea>
-      <label>16- Tools to integrate all modules? <small class="req">*</small></label><textarea name="tools_integration" required></textarea>
-      <label>17- If a chosen AI tool fails, how will you replace/adapt? <small class="req">*</small></label><textarea name="tools_flexibility" required></textarea>
-
-      <!-- ✨ السؤال الجديد رقم 18 -->
-      <label>18- What tools/pipeline will you use to fully auto-produce a 7-minute video in ≤45 minutes (and a 15-minute video in ≤90 minutes) starting from the Chat Window (deep scenario analysis ~15 scenes / ~15k chars) using the Smart Director (Auto) — including all images, voices, visual/audio backgrounds? <small class="req">*</small></label>
-      <textarea name="tools_auto_pipeline" required></textarea>
-
-      <label>19- Are you ready to deliver 100% quality? <small class="req">*</small></label>
-      <div class="radio-group"><label><input type="radio" name="deliver_quality" value="Yes" required> Yes</label><label><input type="radio" name="deliver_quality" value="No" required> No</label></div>
-
-      <label>20- Will your outputs match reference videos’ quality? <small class="req">*</small></label>
-      <div class="radio-group"><label><input type="radio" name="match_quality" value="Yes" required> Yes</label><label><input type="radio" name="match_quality" value="No" required> No</label></div>
+    <!-- Clause 1 -->
+    <div class="cond-block">
+      <label>1) Offline Platform Requirement <small class="req">*</small></label>
+      <p class="muted">
+        The platform must run 100% offline (no Internet, no subscriptions, no credits) without reliance on any external API, server, or cloud service and perform at full capacity without lag on the client’s device with the following specifications:<br>
+        - AMD Ryzen™ 9 9955HX 3.50 GHz Fire Range<br>
+        - Nvidia GeForce® RTX™ 5090 24GB GDDR7<br>
+        - 64GB DDR5 RAM + 4TB SSD NVMe<br>
+        - Display 16" WQXGA (2560x1600) 300Hz<br>
+        - Windows 11 Home 64-bit
+      </p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond1" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond1" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond1_comment"></textarea>
     </div>
 
-    <!-- Basic Confirmation -->
-    <div class="card">
+    <!-- Clause 2 -->
+    <div class="cond-block">
+      <label>2) Client-Side Validation <small class="req">*</small></label>
+      <p class="muted">Delivery will only be considered accepted after the platform is successfully tested on the client’s device with the documented specifications.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond2" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond2" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond2_comment"></textarea>
+    </div>
 
+    <!-- Clause 3 -->
+    <div class="cond-block">
+      <label>3) Escrow Payment <small class="req">*</small></label>
+      <p class="muted">The full project budget is 7500 USD. It may be funded in one, two, or three installments, but will remain fully escrowed on Upwork, Freelancer, Guru, or any equivalent escrow-based platform (or a direct escrow account) and will not be released until the platform is delivered completely and meets the required quality.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond3" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond3" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond3_comment"></textarea>
+    </div>
 
-    <h3>❓ Basic Confirmation Questions</h3>
+    <!-- Clause 4 -->
+    <div class="cond-block">
+      <label>4) Performance Bonus <small class="req">*</small></label>
+      <p class="muted">The client reserves the right to provide an optional performance bonus of 500–1000 USD after full delivery of the platform, depending on quality and overall satisfaction.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond4" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond4" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond4_comment"></textarea>
+    </div>
+
+    <!-- Clause 5 -->
+    <div class="cond-block">
+      <label>5) Penalty and Deterrence <small class="req">*</small></label>
+      <p class="muted">
+        Both parties commit not to withdraw from the project without mutual written agreement.<br>
+        Any unilateral withdrawal constitutes a material breach and is subject to compensation as follows:<br>
+        * Withdrawal within the first two weeks: 1000 USD<br>
+        * Withdrawal between week 3 and week 9: 1500 USD<br>
+        * Withdrawal after week 9 until week 16: 2000 USD<br>
+        Any withdrawal or delay is considered a double loss for the client (time + opportunity) and may result in additional compensation through arbitration.<br>
+        All payments remain fully escrowed until final delivery.<br>
+        The developer acknowledges that withdrawal or non-compliance will directly harm their professional rating and reputation on the platform.
+      </p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond5" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond5" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond5_comment"></textarea>
+    </div>
+
+    <!-- Clause 6 -->
+    <div class="cond-block">
+      <label>6) Documented Quality <small class="req">*</small></label>
+      <p class="muted">The required quality is documented in writing in the official Hasaballa AI specification file and visually documented through reference videos, which represent the minimum acceptable quality.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond6" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond6" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond6_comment"></textarea>
+    </div>
+
+    <!-- Clause 7 -->
+    <div class="cond-block">
+      <label>7) Implementation Period <small class="req">*</small></label>
+      <p class="muted">The maximum implementation period is 16 weeks.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond7" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond7" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond7_comment"></textarea>
+    </div>
+
+    <!-- Clause 8 -->
+    <div class="cond-block">
+      <label>8) Developer Freedom <small class="req">*</small></label>
+      <p class="muted">The developer has full freedom to select tools and internal workflows, provided that the required results and quality are achieved.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond8" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond8" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond8_comment"></textarea>
+    </div>
+
+    <!-- Clause 9 -->
+    <div class="cond-block">
+      <label>9) Final Platform Approval <small class="req">*</small></label>
+      <p class="muted">The client is not obligated to review or approve partial milestones. The client reserves the right to review and approve only the final, complete platform. Internal milestone breakdowns remain at the developer’s discretion.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond9" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond9" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond9_comment"></textarea>
+    </div>
+
+    <!-- Clause 10 -->
+    <div class="cond-block">
+      <label>10) Unlimited Revisions <small class="req">*</small></label>
+      <p class="muted">The developer commits to unlimited modifications until the platform fully meets the documented quality standards, both written and visual.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond10" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond10" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond10_comment"></textarea>
+    </div>
+
+    <!-- Clause 11 -->
+    <div class="cond-block">
+      <label>11) Ownership Rights <small class="req">*</small></label>
+      <p class="muted">All source code, AI models, assets, and deliverables become the exclusive property of the client upon payment. The developer may not reuse, resell, or redistribute them in any form.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond11" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond11" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond11_comment"></textarea>
+    </div>
+
+    <!-- Clause 12 -->
+    <div class="cond-block">
+      <label>12) Final Delivery Definition <small class="req">*</small></label>
+      <p class="muted">
+        Delivery is considered complete only when the client receives:<br>
+        - The full source code<br>
+        - A working installer (EXE or equivalent) for direct use<br>
+        - A user manual (PDF or equivalent) explaining setup and usage
+      </p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond12" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond12" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond12_comment"></textarea>
+    </div>
+
+    <!-- Clause 13 -->
+    <div class="cond-block">
+      <label>13) Post-Delivery Support <small class="req">*</small></label>
+      <p class="muted">The developer provides a minimum of 4 weeks of free technical support to fix bugs or errors after delivery. Additional development beyond this scope will require a separate contract.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond13" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond13" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond13_comment"></textarea>
+    </div>
+
+    <!-- Clause 14 -->
+    <div class="cond-block">
+      <label>14) Delay Penalty <small class="req">*</small></label>
+      <p class="muted">Any delay beyond the 16-week maximum incurs a penalty of 250 USD per week, capped at 2000 USD, deducted from the developer’s payment.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond14" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond14" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond14_comment"></textarea>
+    </div>
+
+    <!-- Clause 15 -->
+    <div class="cond-block">
+      <label>15) Partial or Demo Deliveries <small class="req">*</small></label>
+      <p class="muted">Any incomplete, demo, or non-compliant delivery shall not be considered final delivery and will not trigger payment release.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond15" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond15" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond15_comment"></textarea>
+    </div>
+
+    <!-- Clause 16 -->
+    <div class="cond-block">
+      <label>16) Confidentiality <small class="req">*</small></label>
+      <p class="muted">The developer must maintain strict confidentiality regarding the project details, code, assets, and client information, and may not share them with third parties.</p>
+      <div class="radio-group">
+        <label><input type="radio" name="cond16" value="Agree" required> Agree</label>
+        <label><input type="radio" name="cond16" value="Disagree" required> Disagree</label>
+      </div>
+      <label>Add comment (optional)</label><textarea name="cond16_comment"></textarea>
+    </div>
+
+    <h3>📝 Developer Questionnaire (Technical)</h3>
+    <label>Are you a team? <small class="req">*</small></label>
+    <div class="radio-group">
+      <label><input type="radio" name="is_team" value="Yes" required> Team</label>
+      <label><input type="radio" name="is_team" value="No" required> Solo</label>
+    </div>
+
+    <label>1- If Team: list members & roles <small class="req">*</small></label><textarea name="team_details" required></textarea>
+    <label>2- Have you worked with AI tools before? (brief) <small class="req">*</small></label><textarea name="ai_experience" required></textarea>
+    <label>3- Which AI tools do you have strong experience with? <small class="req">*</small></label><textarea name="ai_tools" required></textarea>
+    <label>4- Tools for ultra-realistic image generation...? <small class="req">*</small></label><textarea name="tools_imagegen" required></textarea>
+    <label>5- Tools to ensure 100% correct Arabic text? <small class="req">*</small></label><textarea name="tools_arabictext" required></textarea>
+    <label>6- Tools for identity lock? <small class="req">*</small></label><textarea name="tools_identity" required></textarea>
+    <label>7- Tools for audio enhancement? <small class="req">*</small></label><textarea name="tools_audioenhance" required></textarea>
+    <label>8- Tools for voice cloning & generation? <small class="req">*</small></label><textarea name="tools_voiceclone" required></textarea>
+    <label>9- Tools for Arabic dialects? <small class="req">*</small></label><textarea name="tools_dialects" required></textarea>
+    <label>10- Tools for singing voice generation? <small class="req">*</small></label><textarea name="tools_singing" required></textarea>
+    <label>11- Tools for integrated sound library? <small class="req">*</small></label><textarea name="tools_soundlib" required></textarea>
+    <label>12- Tools for cinematic image animation? <small class="req">*</small></label><textarea name="tools_animation" required></textarea>
+    <label>13- Worked with SkyReels V2? Opinion?</label><textarea name="tools_skyreels"></textarea>
+    <label>14- Tools for lip-sync? <small class="req">*</small></label><textarea name="tools_lipsync" required></textarea>
+    <label>15- Tools for Chat Window analysis/orchestration? <small class="req">*</small></label><textarea name="tools_chatwindow" required></textarea>
+    <label>16- Tools to integrate all modules? <small class="req">*</small></label><textarea name="tools_integration" required></textarea>
+    <label>17- If a chosen AI tool fails, how will you replace/adapt? <small class="req">*</small></label><textarea name="tools_flexibility" required></textarea>
+
+    <label>18- What tools/pipeline will you use to fully auto-produce a 7-minute video in ≤45 minutes (and a 15-minute video in ≤90 minutes) starting from the Chat Window (deep scenario analysis ~15 scenes / ~15k chars) using the Smart Director (Auto) — including all images, voices, visual/audio backgrounds? <small class="req">*</small></label>
+    <textarea name="tools_auto_pipeline" required></textarea>
+
+    <label>19- Are you ready to deliver 100% quality? <small class="req">*</small></label>
+    <div class="radio-group">
+      <label><input type="radio" name="deliver_quality" value="Yes" required> Yes</label>
+      <label><input type="radio" name="deliver_quality" value="No" required> No</label>
+    </div>
+
+    <label>20- Will your outputs match reference videos’ quality? <small class="req">*</small></label>
+    <div class="radio-group">
+      <label><input type="radio" name="match_quality" value="Yes" required> Yes</label>
+      <label><input type="radio" name="match_quality" value="No" required> No</label>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>❓ Basic Confirmation Questions</h3>
 
       <label>21- Have you read all the main tasks... and visited the reference video links? <small class="req">*</small></label>
       <div class="radio-group">
         <label><input type="radio" name="read_refs" value="Yes" required> Yes</label>
         <label><input type="radio" name="read_refs" value="No" required> No</label>
       </div>
+
       <label>22- Add a comment regarding this question (optional)</label>
       <textarea name="read_refs_comment"></textarea>
 
@@ -340,21 +344,57 @@ const EMAILJS_TEMPLATE_ID = "template_hkzwo9b";
 const EMAIL_TO            = "namozg50@gmail.com";
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
+/* ===== Helpers ===== */
+function isRadio(element){ return element.type === "radio"; }
+function firstInvalidControl(form){
+  for (const el of form.elements){
+    if (!el.willValidate) continue;
+    if (isRadio(el)){
+      const name = el.name;
+      const group = form.querySelectorAll(`input[type="radio"][name="${CSS.escape(name)}"]`);
+      const required = Array.from(group).some(r => r.required);
+      const checked  = Array.from(group).some(r => r.checked);
+      if (required && !checked){
+        return group[0];
+      }
+      continue;
+    }
+    if (!el.checkValidity()){
+      return el;
+    }
+  }
+  return null;
+}
+
 /* ====== Validation + Submit ====== */
 const formEl = document.getElementById("devForm");
 const statusBox = document.getElementById("statusBox");
+
 formEl.addEventListener("submit", async (e) => {
   e.preventDefault();
-  statusBox.className=""; statusBox.textContent="";
+  statusBox.className = "";
+  statusBox.textContent = "";
 
-  const firstInvalid = Array.from(formEl.elements).find(el => el.willValidate && !el.checkValidity());
-  if (firstInvalid) {
-    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    firstInvalid.focus({ preventScroll: true });
-    firstInvalid.reportValidity();
+  if (!formEl.checkValidity()){
+    const firstInvalid = firstInvalidControl(formEl) || formEl.querySelector(":invalid");
+    if (firstInvalid){
+      // Scroll + Focus
+      firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+      firstInvalid.focus({ preventScroll: true });
+      if (typeof firstInvalid.reportValidity === "function"){
+        firstInvalid.reportValidity();
+      }
+
+      // 🎨 Border أحمر + شادو مؤقت
+      const oldStyle = firstInvalid.style.cssText;
+      firstInvalid.style.border = "2px solid red";
+      firstInvalid.style.boxShadow = "0 0 6px rgba(255,0,0,0.6)";
+      setTimeout(()=>{ firstInvalid.style.cssText = oldStyle; }, 2500);
+    }
     return;
   }
 
+  // جمع البيانات
   const fd = new FormData(formEl);
   const payload = {};
   fd.forEach((v,k)=>payload[k]=String(v).trim());
@@ -378,13 +418,14 @@ formEl.addEventListener("submit", async (e) => {
     statusBox.textContent="❌ Email send failed: " + (err?.text || err?.message || String(err));
   }
 
-  const local=JSON.parse(localStorage.getItem("hasaballa_submissions")||"[]");
+  // حفظ محلي
+  const local = JSON.parse(localStorage.getItem("hasaballa_submissions") || "[]");
   local.push(payload);
-  localStorage.setItem("hasaballa_submissions",JSON.stringify(local));
+  localStorage.setItem("hasaballa_submissions", JSON.stringify(local));
 });
 
 /* ====== Scoring / Analysis ====== */
-const SCORE_WEIGHTS = { /* نفس object بتاعك */ 
+const SCORE_WEIGHTS = { 
   imagegen:{good:["stable diffusion","sdxl","sd3","flux","comfyui","controlnet","ip-adapter","instantid","lora","kohya","roop","reactor"],bad:["midjourney","dalle","api","cloud"]},
   arabicText:{good:["arabic","harakat","ocr","ligature","font shaping","text rendering","pangram","inpaint","controlnet tile"],bad:["api","cloud"]},
   identity:{good:["instantid","ip-adapter faceid","reactor","roop","faceid","seed lock","embeddings"],bad:["api","cloud"]},
@@ -398,14 +439,41 @@ const SCORE_WEIGHTS = { /* نفس object بتاعك */
   chatwindow:{good:["mistral","mixtral","llama","llama.cpp","ollama","gguf","router","parser","seeded planning"],bad:["api","cloud"]},
   integration:{good:["pytorch","cuda","node","python","grpc","message bus","ffmpeg","opencv","async","pipeline","timeline"],bad:["api","cloud"]}
 };
+
 function norm(t){return (t||"").toLowerCase();}
-function analyzeSubmission(fields){ /* زي ما عندك */ 
-  function scoreField(text,map){let s=0,hg=[],hb=[];const n=norm(text||"");map.good.forEach(k=>{if(n.includes(k)){s+=10;hg.push(k);}});map.bad.forEach(k=>{if(n.includes(k)){s-=8;hb.push(k);}});return{s,hg,hb};}
-  const buckets={imagegen:scoreField(fields.tools_imagegen,SCORE_WEIGHTS.imagegen),arabicText:scoreField(fields.tools_arabictext,SCORE_WEIGHTS.arabicText),identity:scoreField(fields.tools_identity,SCORE_WEIGHTS.identity),voiceEnhance:scoreField(fields.tools_audioenhance,SCORE_WEIGHTS.voiceEnhance),voiceClone:scoreField(fields.tools_voiceclone,SCORE_WEIGHTS.voiceClone),dialects:scoreField(fields.tools_dialects,SCORE_WEIGHTS.dialects),singing:scoreField(fields.tools_singing,SCORE_WEIGHTS.singing),soundlib:scoreField(fields.tools_soundlib,SCORE_WEIGHTS.soundlib),animation:scoreField(fields.tools_animation,SCORE_WEIGHTS.animation),lipsync:scoreField(fields.tools_lipsync,SCORE_WEIGHTS.lipsync),chatwindow:scoreField(fields.tools_chatwindow,SCORE_WEIGHTS.chatwindow),integration:scoreField(fields.tools_integration,SCORE_WEIGHTS.integration)};
-  let total=0, positives=[], negatives=[];Object.values(buckets).forEach(v=>{total+=v.s;positives=positives.concat(v.hg);negatives=negatives.concat(v.hb);});
+
+function analyzeSubmission(fields){
+  function scoreField(text,map){
+    let s=0,hg=[],hb=[];
+    const n=norm(text||"");
+    map.good.forEach(k=>{if(n.includes(k)){s+=10;hg.push(k);}});
+    map.bad.forEach(k=>{if(n.includes(k)){s-=8;hb.push(k);}});
+    return{s,hg,hb};
+  }
+  const buckets={
+    imagegen:scoreField(fields.tools_imagegen,SCORE_WEIGHTS.imagegen),
+    arabicText:scoreField(fields.tools_arabictext,SCORE_WEIGHTS.arabicText),
+    identity:scoreField(fields.tools_identity,SCORE_WEIGHTS.identity),
+    voiceEnhance:scoreField(fields.tools_audioenhance,SCORE_WEIGHTS.voiceEnhance),
+    voiceClone:scoreField(fields.tools_voiceclone,SCORE_WEIGHTS.voiceClone),
+    dialects:scoreField(fields.tools_dialects,SCORE_WEIGHTS.dialects),
+    singing:scoreField(fields.tools_singing,SCORE_WEIGHTS.singing),
+    soundlib:scoreField(fields.tools_soundlib,SCORE_WEIGHTS.soundlib),
+    animation:scoreField(fields.tools_animation,SCORE_WEIGHTS.animation),
+    lipsync:scoreField(fields.tools_lipsync,SCORE_WEIGHTS.lipsync),
+    chatwindow:scoreField(fields.tools_chatwindow,SCORE_WEIGHTS.chatwindow),
+    integration:scoreField(fields.tools_integration,SCORE_WEIGHTS.integration)
+  };
+  let total=0, positives=[], negatives=[];
+  Object.values(buckets).forEach(v=>{
+    total+=v.s;
+    positives=positives.concat(v.hg);
+    negatives=negatives.concat(v.hb);
+  });
   const qLen = norm(fields.quality_metrics).length + norm(fields.training_strategy).length + norm(fields.test_plan).length;
   total += Math.min(30, Math.floor(qLen/200));
   const score=Math.max(0, Math.min(100, Math.round((total/220)*100)));
+
   const strengths=[], weaknesses=[];
   if(positives.some(x=>["sdxl","flux","controlnet","ip-adapter","instantid","lora"].includes(x))) strengths.push("Strong image generation/tooling");
   if(positives.some(x=>["instantid","faceid","roop","reactor"].includes(x))) strengths.push("Identity stability addressed");
@@ -413,17 +481,36 @@ function analyzeSubmission(fields){ /* زي ما عندك */
   if(positives.some(x=>["tacotron","vits","coqui","rvc","xtts"].includes(x))) strengths.push("Voice cloning/generation stack present");
   if(positives.some(x=>["mistral","mixtral","llama","ollama","gguf"].includes(x))) strengths.push("Offline LLM/router for Chat Window");
   if(positives.some(x=>["pytorch","ffmpeg","cuda","opencv"].includes(x))) strengths.push("Solid integration stack");
+
   if(qLen<400) weaknesses.push("Quality/Training/Test answers need more depth.");
+
   const recommendation = score>=85? "Highly Recommended" : score>=70? "Recommended" : score>=55? "Borderline" : "Not Recommended";
   const isBestTools = (weaknesses.length===0 && score>=75) ? "Yes" : "No";
+
   return {score,strengths,weaknesses,recommendation,isBestTools};
 }
 
 /* ====== Email Builder ====== */
-function buildEmailHTML(payload){ /* زي ما عندك بالضبط */ 
-  const a = payload.analysis || {}; const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-  return `<div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px"><div style="max-width:860px;margin:auto;background:#ffffff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden"><div style="background:#0d6efd;color:#fff;padding:16px 20px"><h2 style="margin:0;font-size:20px">New Hasaballa AI Developer Submission</h2><div style="opacity:.9">Created at: ${new Date(payload.created_at||Date.now()).toUTCString()}</div></div></div></div>`;
+function buildEmailHTML(payload){
+  const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+  return `
+  <div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px">
+    <div style="max-width:860px;margin:auto;background:#ffffff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden">
+      <div style="background:#0d6efd;color:#fff;padding:16px 20px">
+        <h2 style="margin:0;font-size:20px">New Hasaballa AI Developer Submission</h2>
+        <div style="opacity:.9">Created at: ${new Date(payload.created_at||Date.now()).toUTCString()}</div>
+      </div>
+      <div style="padding:16px 20px">
+        <p><b>Name:</b> ${esc(payload.name)}</p>
+        <p><b>Company:</b> ${esc(payload.company)}</p>
+        <p><b>Platform:</b> ${esc(payload.platform)}</p>
+        <hr>
+        <pre style="white-space:pre-wrap;font-family:Consolas,Monaco,monospace">${esc(JSON.stringify(payload, null, 2))}</pre>
+      </div>
+    </div>
+  </div>`;
 }
 </script>
+
 </body>
 </html>
