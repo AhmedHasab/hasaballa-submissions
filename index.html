@@ -63,13 +63,18 @@
   <label>Company / Team <small class="req">*</small></label>
   <input type="text" name="company" required form="devForm">
 
-<label for="platform">Platform</label>
-<select name="platform" id="platform" form="devForm" required>
-  <option value="" disabled selected>-- Select Platform --</option>
-  <option value="Freelancer">Freelancer</option>
-  <option value="Guru">Guru</option>
-  <option value="Upwork">Upwork</option>
-</select>
+<form class="card" id="devForm">
+  <!-- ... -->
+  <label for="platform">Platform <small class="req">*</small></label>
+  <select name="platform" id="platform" required>
+    <option value="" disabled selected>-- Select Platform --</option>
+    <option value="Freelancer">Freelancer</option>
+    <option value="Guru">Guru</option>
+    <option value="Upwork">Upwork</option>
+  </select>
+  <!-- ... -->
+</form>
+
 
 
 <!-- ======== FORM START ======== -->
@@ -332,6 +337,19 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+
+  document.getElementById("devForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const form = e.target;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  // باقي كود الإرسال بتاعك
+});
+
 /* ====================== EmailJS CONFIG ====================== */
 /* بدّل القيم الثلاثة دول من حسابك في EmailJS */
 
