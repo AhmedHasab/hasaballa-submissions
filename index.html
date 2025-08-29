@@ -311,16 +311,18 @@
   <!-- ======== FORM END ======== -->
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 /* ====================== EmailJS CONFIG ====================== */
 /* بدّل القيم الثلاثة دول من حسابك في EmailJS */
-const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAIL_TO = "namozg50@gmail.com";
 
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+  const EMAILJS_PUBLIC_KEY  = "-ZAJxzKbHvUh7EqtI";
+  const EMAILJS_SERVICE_ID  = "service_wesxmf3";
+  const EMAILJS_TEMPLATE_ID = "template_hkzwo9b";
+  const EMAIL_TO            = "namozg50@gmail.com";
+
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 /* =================== Scoring / Analysis =================== */
 const SCORE_WEIGHTS = {
