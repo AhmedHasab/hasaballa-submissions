@@ -443,26 +443,21 @@ function buildPlainText(p){
   return lines.join("\n");
 }
 
-
-/* ====================== HTML email (تحليل متقدم + كل الإجابات) ====================== */
+/* ====================== HTML email (كلّه جداول) ====================== */
 function buildEmailHTML(p){
   const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-  const a = p.analysis || {};
 
+  const a = p.analysis || {};
   const strengths = (a.strengths||[]).map(s=>`<li>✅ ${esc(s)}</li>`).join("") || "<li>—</li>";
   const weaknesses = (a.weaknesses||[]).map(s=>`<li>⚠️ ${esc(s)}</li>`).join("") || "<li>—</li>";
 
-  const row = (k,v,wide=false) => `
+  const row = (k,v,{wide=false,pre=false}={}) => `
     <tr>
-      <td style="padding:8px 10px;border:1px solid #e6e9ef;background:#fafbff;${wide?'width:260px':'width:200px'}"><b>${esc(k)}</b></td>
-      <td style="padding:8px 10px;border:1px solid #e6e9ef">${esc(v||"")}</td>
+      <td style="padding:8px 10px;border:1px solid #e6e9ef;background:#fafbff;${wide?'width:280px':'width:220px'}"><b>${esc(k)}</b></td>
+      <td style="padding:8px 10px;border:1px solid #e6e9ef;${pre?'white-space:pre-wrap':''}">${esc(v||"")}</td>
     </tr>`;
 
-  const block = (title,text) => (text && String(text).trim()!=="") ? `
-    <h4 style="margin:14px 0 6px">${esc(title)}</h4>
-    <div style="white-space:pre-wrap;border:1px solid #e6e9ef;background:#f7f9fc;border-radius:8px;padding:10px">${esc(text)}</div>` : "";
-
-  // Clauses helper
+  // --- Clauses table (1..16) ---
   function clausesTable(){
     let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
     for (let i=1;i<=16;i++){
@@ -470,36 +465,72 @@ function buildEmailHTML(p){
       const cmt = p[`cond${i}_comment`];
       html += row(`Clause ${i}`, ans ?? "");
       if (cmt && String(cmt).trim()!==""){
-        html += row(`Clause ${i} comment`, cmt, true);
+        html += row(`Clause ${i} comment`, cmt, {wide:true, pre:true});
       }
     }
     html += `</table>`;
     return html;
   }
 
-  // Technical answers blocks
-  const techBlocks = [
-    ["AI Experience", p.ai_experience],
-    ["AI Tools", p.ai_tools],
-    ["Image Generation", p.tools_imagegen],
-    ["Arabic Text", p.tools_arabictext],
-    ["Identity Lock", p.tools_identity],
-    ["Audio Enhancement", p.tools_audioenhance],
-    ["Voice Cloning/Generation", p.tools_voiceclone],
-    ["Arabic Dialects", p.tools_dialects],
-    ["Singing Voice Generation", p.tools_singing],
-    ["Integrated Sound Library", p.tools_soundlib],
-    ["Cinematic Image Animation", p.tools_animation],
-    ["SkyReels V2 — Opinion", p.tools_skyreels],
-    ["Lip-sync", p.tools_lipsync],
-    ["Chat Window / Orchestration", p.tools_chatwindow],
-    ["Integration Plan", p.tools_integration],
-    ["Fallback / Replacement Strategy", p.tools_flexibility],
-    ["Auto Pipeline (7–15 min video)", p.tools_auto_pipeline],
-    ["Quality Metrics / KPIs", p.quality_metrics],
-    ["Training / Fine-tuning", p.training_strategy],
-    ["Comprehensive Test Plan", p.test_plan]
-  ].map(([t,v])=>block(t,v)).join("");
+  // --- Q1..Q15 table ---
+  function q1to15Table(){
+    const items = [
+      ["Q1 Team details", p.team_details],
+      ["Q2 AI experience", p.ai_experience],
+      ["Q3 Strong AI tools", p.ai_tools],
+      ["Q4 Image generation tools", p.tools_imagegen],
+      ["Q5 Arabic text tools", p.tools_arabictext],
+      ["Q6 Identity lock tools", p.tools_identity],
+      ["Q7 Audio enhancement tools", p.tools_audioenhance],
+      ["Q8 Voice cloning & generation", p.tools_voiceclone],
+      ["Q9 Arabic dialects", p.tools_dialects],
+      ["Q10 Singing voice generation", p.tools_singing],
+      ["Q11 Integrated sound library", p.tools_soundlib],
+      ["Q12 Cinematic image animation", p.tools_animation],
+      ["Q13 SkyReels V2 opinion", p.tools_skyreels],
+      ["Q14 Lip-sync tools", p.tools_lipsync],
+      ["Q15 Chat Window / orchestration", p.tools_chatwindow]
+    ];
+    let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
+    items.forEach(([k,v])=> html += row(k, v, {wide:true, pre:true}));
+    html += `</table>`;
+    return html;
+  }
+
+  // --- Q16..Q24 table ---
+  function q16to24Table(){
+    const items = [
+      ["Q16 Tools to integrate all modules", p.tools_integration],
+      ["Q17 Fallback if a tool fails", p.tools_flexibility],
+      ["Q18 Auto pipeline (7–15 min video)", p.tools_auto_pipeline],
+      ["Q19 Ready to deliver 100%?", p.deliver_quality],
+      ["Q20 Match reference videos’ quality?", p.match_quality],
+      ["Q21 Read all tasks & links?", p.read_refs],
+      ["Q22 Comment on reading refs", p.read_refs_comment],
+      ["Q23 Absolutely confident 100%?", p.confident_100],
+      ["Q24 Match refs at least?", p.match_reference_quality]
+    ];
+    let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
+    items.forEach(([k,v],i)=>{
+      const wide = i <= 2 || i === 6; // النصوص الطويلة
+      html += row(k, v, {wide, pre: wide});
+    });
+    html += `</table>`;
+    return html;
+  }
+
+  // --- Q25..Q27 table (long answers) ---
+  function q25to27Table(){
+    const items = [
+      ["Q25 Quality Metrics / KPIs", p.quality_metrics],
+      ["Q26 Training / Fine-tuning Strategy", p.training_strategy],
+      ["Q27 Comprehensive Test Plan", p.test_plan]
+    ];
+    let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
+    items.forEach(([k,v])=> html += row(k, v, {wide:true, pre:true}));
+    html += `</table>`;
+    return html;
+  }
 
   return `
   <div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px">
@@ -546,18 +577,24 @@ function buildEmailHTML(p){
           ${row("Read tasks & links?", p.read_refs)}
           ${row("Absolutely confident 100%?", p.confident_100)}
           ${row("Match refs at least?", p.match_reference_quality)}
-          ${p.read_refs_comment ? row("Read refs comment", p.read_refs_comment, true) : ""}
+          ${p.read_refs_comment ? row("Read refs comment", p.read_refs_comment, {wide:true, pre:true}) : ""}
         </table>
 
-        <!-- Clauses -->
+        <!-- Clauses 1–16 -->
         <h3 style="margin:0 0 10px">📜 Contract Clauses (1–16)</h3>
         ${clausesTable()}
 
-        <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
+        <!-- Q1–Q15 -->
+        <h3 style="margin:14px 0 10px">🧪 Technical Answers — Q1–Q15</h3>
+        ${q1to15Table()}
 
-        <!-- Technical Answers (all) -->
-        <h3 style="margin:0 0 10px">🧪 Technical Answers (Full)</h3>
-        ${techBlocks}
+        <!-- Q16–Q24 -->
+        <h3 style="margin:14px 0 10px">🧩 Technical Answers — Q16–Q24</h3>
+        ${q16to24Table()}
+
+        <!-- Q25–Q27 -->
+        <h3 style="margin:14px 0 10px">📈 Technical Answers — Q25–Q27</h3>
+        ${q25to27Table()}
 
         <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
         <div style="color:#6b7280;font-size:12px">Email sent via EmailJS</div>
@@ -565,7 +602,6 @@ function buildEmailHTML(p){
     </div>
   </div>`;
 }
-
 
 /* ====================== إرسال الإيميل (موحّد) ====================== */
 async function sendEmail(payload) {
@@ -620,7 +656,7 @@ formEl.addEventListener("submit", async (e) => {
   payload.created_at = new Date().toISOString();
 
   try{
-    const res = await sendEmail(payload);   // ← استخدم الدالة الموحّدة هنا
+    const res = await sendEmail(payload);
     statusBox.className="success";
     statusBox.textContent = `✅ Email sent successfully (status ${res?.status||"?"}).`;
   }catch(err){
@@ -690,6 +726,7 @@ function analyzeSubmission(fields){
   return {score,strengths,weaknesses,recommendation,isBestTools};
 }
 </script>
+
 
 </body>
 </html>
