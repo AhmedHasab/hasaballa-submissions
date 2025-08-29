@@ -341,34 +341,139 @@
 const EMAILJS_PUBLIC_KEY  = "-ZAJxzKbHvUh7EqtI";
 const EMAILJS_SERVICE_ID  = "service_wesxmf3";
 const EMAILJS_TEMPLATE_ID = "template_hkzwo9b";
+/* لو عندك To ثابت في التمبلِت، السطر ده بيتجاهَل عادي.
+   لو مستخدم {{to_email}} في التمبلِت سيبه زي ما هو. */
 const EMAIL_TO            = "namozg50@gmail.com";
+
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-/* ===== Helpers ===== */
-function isRadio(element){ return element.type === "radio"; }
+/* ====================== Helpers (validation) ====================== */
+function isRadio(el){ return el?.type === "radio"; }
 function firstInvalidControl(form){
   for (const el of form.elements){
     if (!el.willValidate) continue;
     if (isRadio(el)){
-      const name = el.name;
-      const group = form.querySelectorAll(`input[type="radio"][name="${CSS.escape(name)}"]`);
+      const group = form.querySelectorAll(`input[type="radio"][name="${CSS.escape(el.name)}"]`);
       const required = Array.from(group).some(r => r.required);
       const checked  = Array.from(group).some(r => r.checked);
-      if (required && !checked){
-        return group[0];
-      }
+      if (required && !checked) return group[0];
       continue;
     }
-    if (!el.checkValidity()){
-      return el;
-    }
+    if (!el.checkValidity()) return el;
   }
   return null;
 }
 
-/* ====== Validation + Submit ====== */
-const formEl = document.getElementById("devForm");
-const statusBox = document.getElementById("statusBox");
+/* ====================== Plain-text fallback ====================== */
+function buildPlainText(p){
+  const a = p.analysis || {};
+  const L = [];
+  L.push("New Hasaballa AI Developer Submission");
+  L.push(`Created at: ${new Date(p.created_at||Date.now()).toUTCString()}`);
+  L.push(`Score: ${a.score ?? "n/a"} | Recommendation: ${a.recommendation ?? "n/a"}`);
+  L.push("");
+  const short = s => String(s||"").slice(0,600);
+  [
+    ["Name", p.name], ["Company", p.company], ["Platform", p.platform],
+    ["Team?", p.is_team], ["Deliver 100%?", p.deliver_quality],
+    ["Match refs?", p.match_quality], ["Read refs?", p.read_refs],
+    ["Confident 100%?", p.confident_100]
+  ].forEach(([k,v]) => L.push(`${k}: ${v||""}`));
+  L.push("");
+  [
+    ["AI Experience",p.ai_experience],["AI Tools",p.ai_tools],
+    ["ImageGen",p.tools_imagegen],["Arabic Text",p.tools_arabictext],
+    ["Identity",p.tools_identity],["Voice Enhance",p.tools_audioenhance],
+    ["Voice Clone",p.tools_voiceclone],["Animation",p.tools_animation],
+    ["LipSync",p.tools_lipsync],["Chat Window",p.tools_chatwindow],
+    ["Integration",p.tools_integration],["Auto Pipeline",p.tools_auto_pipeline],
+    ["Quality Metrics",p.quality_metrics],["Training",p.training_strategy],
+    ["Test Plan",p.test_plan]
+  ].forEach(([k,v])=>{ if(v){ L.push(`--- ${k} ---`); L.push(short(v)); L.push(""); }});
+  return L.join("\n");
+}
+
+/* ====================== HTML email (واحد فقط) ====================== */
+function buildEmailHTML(p){
+  const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+  const a = p.analysis || {};
+  const row = (k,v) => `
+    <tr>
+      <td style="padding:8px 10px;border:1px solid #e6e9ef;background:#fafbff;width:180px"><b>${esc(k)}</b></td>
+      <td style="padding:8px 10px;border:1px solid #e6e9ef">${esc(v||"")}</td>
+    </tr>`;
+  const block = (title,text) => !text ? "" : `
+    <h4 style="margin:12px 0 6px">${esc(title)}</h4>
+    <div style="white-space:pre-wrap;border:1px solid #e6e9ef;background:#f7f9fc;border-radius:8px;padding:10px">${esc(text)}</div>`;
+
+  return `
+  <div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px">
+    <div style="max-width:900px;margin:auto;background:#fff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden">
+      <div style="background:#0d6efd;color:#fff;padding:18px 22px;border-bottom-left-radius:24px;border-bottom-right-radius:24px">
+        <h2 style="margin:0;font-size:26px">New Hasaballa AI Developer Submission</h2>
+        <div style="opacity:.95;margin-top:6px">Created at: ${new Date(p.created_at||Date.now()).toUTCString()}</div>
+        <div style="margin-top:8px;font-weight:600">Score: ${esc(a.score??"n/a")} — Recommendation: ${esc(a.recommendation??"n/a")}</div>
+      </div>
+      <div style="padding:18px 22px">
+        <table style="width:100%;border-collapse:collapse;margin:6px 0 14px">
+          ${row("Name", p.name)}
+          ${row("Company", p.company)}
+          ${row("Platform", p.platform)}
+          ${row("Team?", p.is_team)}
+          ${row("Deliver 100%?", p.deliver_quality)}
+          ${row("Match refs?", p.match_quality)}
+          ${row("Read refs?", p.read_refs)}
+          ${row("Confident 100%?", p.confident_100)}
+        </table>
+
+        ${block("AI Experience", p.ai_experience)}
+        ${block("AI Tools", p.ai_tools)}
+        ${block("Image Generation", p.tools_imagegen)}
+        ${block("Arabic Text", p.tools_arabictext)}
+        ${block("Identity Lock", p.tools_identity)}
+        ${block("Audio Enhancement", p.tools_audioenhance)}
+        ${block("Voice Cloning/Generation", p.tools_voiceclone)}
+        ${block("Animation", p.tools_animation)}
+        ${block("Lip-sync", p.tools_lipsync)}
+        ${block("Chat Window / Orchestration", p.tools_chatwindow)}
+        ${block("Integration Plan", p.tools_integration)}
+        ${block("Auto Pipeline (7–15 min video)", p.tools_auto_pipeline)}
+        ${block("Quality Metrics", p.quality_metrics)}
+        ${block("Training / Fine-tuning", p.training_strategy)}
+        ${block("Test Plan", p.test_plan)}
+
+        <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
+        <div style="color:#6b7280;font-size:12px">Email sent via EmailJS</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ====================== إرسال الإيميل (موحّد) ====================== */
+async function sendEmail(payload) {
+  const subject = "New Hasaballa AI Developer Submission";
+  const params = {
+    to_email: EMAIL_TO,                      // هيتم تجاهله لو To ثابت في التمبلِت
+    subject,                                 // {{subject}}
+    message_html: buildEmailHTML(payload),   // {{{message_html}}}
+    message: buildPlainText(payload),        // احتياطي لو عندك {{message}}
+    // لتعبئة From Name و Reply-To في التمبلِت:
+    name: payload.name || "Applicant",       // {{name}}
+    email: "no-reply@hasaballa.local"        // {{email}} (غيّره لو عندك حقل إيميل)
+  };
+  const res = await emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    params,
+    { publicKey: EMAILJS_PUBLIC_KEY }
+  );
+  console.log("EmailJS response:", res);
+  return res;
+}
+
+/* ====================== Submit Handler ====================== */
+const formEl   = document.getElementById("devForm");
+const statusBox= document.getElementById("statusBox");
 
 formEl.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -378,14 +483,9 @@ formEl.addEventListener("submit", async (e) => {
   if (!formEl.checkValidity()){
     const firstInvalid = firstInvalidControl(formEl) || formEl.querySelector(":invalid");
     if (firstInvalid){
-      // Scroll + Focus
       firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
       firstInvalid.focus({ preventScroll: true });
-      if (typeof firstInvalid.reportValidity === "function"){
-        firstInvalid.reportValidity();
-      }
-
-      // 🎨 Border أحمر + شادو مؤقت
+      if (typeof firstInvalid.reportValidity === "function") firstInvalid.reportValidity();
       const oldStyle = firstInvalid.style.cssText;
       firstInvalid.style.border = "2px solid red";
       firstInvalid.style.boxShadow = "0 0 6px rgba(255,0,0,0.6)";
@@ -398,24 +498,17 @@ formEl.addEventListener("submit", async (e) => {
   const fd = new FormData(formEl);
   const payload = {};
   fd.forEach((v,k)=>payload[k]=String(v).trim());
-
   payload.analysis   = analyzeSubmission(payload);
   payload.created_at = new Date().toISOString();
 
-  const message_html = buildEmailHTML(payload);
-  const subject = "New Hasaballa AI Developer Submission";
-
   try{
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: EMAIL_TO,
-      subject,
-      message_html
-    });
+    const res = await sendEmail(payload);   // ← استخدم الدالة الموحّدة هنا
     statusBox.className="success";
-    statusBox.textContent="✅ Email sent successfully.";
+    statusBox.textContent = `✅ Email sent successfully (status ${res?.status||"?"}).`;
   }catch(err){
     statusBox.className="danger";
     statusBox.textContent="❌ Email send failed: " + (err?.text || err?.message || String(err));
+    console.error("EmailJS error:", err);
   }
 
   // حفظ محلي
@@ -424,7 +517,7 @@ formEl.addEventListener("submit", async (e) => {
   localStorage.setItem("hasaballa_submissions", JSON.stringify(local));
 });
 
-/* ====== Scoring / Analysis ====== */
+/* ====================== Scoring / Analysis ====================== */
 const SCORE_WEIGHTS = { 
   imagegen:{good:["stable diffusion","sdxl","sd3","flux","comfyui","controlnet","ip-adapter","instantid","lora","kohya","roop","reactor"],bad:["midjourney","dalle","api","cloud"]},
   arabicText:{good:["arabic","harakat","ocr","ligature","font shaping","text rendering","pangram","inpaint","controlnet tile"],bad:["api","cloud"]},
@@ -439,13 +532,10 @@ const SCORE_WEIGHTS = {
   chatwindow:{good:["mistral","mixtral","llama","llama.cpp","ollama","gguf","router","parser","seeded planning"],bad:["api","cloud"]},
   integration:{good:["pytorch","cuda","node","python","grpc","message bus","ffmpeg","opencv","async","pipeline","timeline"],bad:["api","cloud"]}
 };
-
 function norm(t){return (t||"").toLowerCase();}
-
 function analyzeSubmission(fields){
   function scoreField(text,map){
-    let s=0,hg=[],hb=[];
-    const n=norm(text||"");
+    let s=0,hg=[],hb=[]; const n=norm(text||"");
     map.good.forEach(k=>{if(n.includes(k)){s+=10;hg.push(k);}});
     map.bad.forEach(k=>{if(n.includes(k)){s-=8;hb.push(k);}});
     return{s,hg,hb};
@@ -465,15 +555,10 @@ function analyzeSubmission(fields){
     integration:scoreField(fields.tools_integration,SCORE_WEIGHTS.integration)
   };
   let total=0, positives=[], negatives=[];
-  Object.values(buckets).forEach(v=>{
-    total+=v.s;
-    positives=positives.concat(v.hg);
-    negatives=negatives.concat(v.hb);
-  });
+  Object.values(buckets).forEach(v=>{ total+=v.s; positives=positives.concat(v.hg); negatives=negatives.concat(v.hb); });
   const qLen = norm(fields.quality_metrics).length + norm(fields.training_strategy).length + norm(fields.test_plan).length;
   total += Math.min(30, Math.floor(qLen/200));
-  const score=Math.max(0, Math.min(100, Math.round((total/220)*100)));
-
+  const score = Math.max(0, Math.min(100, Math.round((total/220)*100)));
   const strengths=[], weaknesses=[];
   if(positives.some(x=>["sdxl","flux","controlnet","ip-adapter","instantid","lora"].includes(x))) strengths.push("Strong image generation/tooling");
   if(positives.some(x=>["instantid","faceid","roop","reactor"].includes(x))) strengths.push("Identity stability addressed");
@@ -481,34 +566,10 @@ function analyzeSubmission(fields){
   if(positives.some(x=>["tacotron","vits","coqui","rvc","xtts"].includes(x))) strengths.push("Voice cloning/generation stack present");
   if(positives.some(x=>["mistral","mixtral","llama","ollama","gguf"].includes(x))) strengths.push("Offline LLM/router for Chat Window");
   if(positives.some(x=>["pytorch","ffmpeg","cuda","opencv"].includes(x))) strengths.push("Solid integration stack");
-
   if(qLen<400) weaknesses.push("Quality/Training/Test answers need more depth.");
-
   const recommendation = score>=85? "Highly Recommended" : score>=70? "Recommended" : score>=55? "Borderline" : "Not Recommended";
   const isBestTools = (weaknesses.length===0 && score>=75) ? "Yes" : "No";
-
   return {score,strengths,weaknesses,recommendation,isBestTools};
-}
-
-/* ====== Email Builder ====== */
-function buildEmailHTML(payload){
-  const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-  return `
-  <div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px">
-    <div style="max-width:860px;margin:auto;background:#ffffff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden">
-      <div style="background:#0d6efd;color:#fff;padding:16px 20px">
-        <h2 style="margin:0;font-size:20px">New Hasaballa AI Developer Submission</h2>
-        <div style="opacity:.9">Created at: ${new Date(payload.created_at||Date.now()).toUTCString()}</div>
-      </div>
-      <div style="padding:16px 20px">
-        <p><b>Name:</b> ${esc(payload.name)}</p>
-        <p><b>Company:</b> ${esc(payload.company)}</p>
-        <p><b>Platform:</b> ${esc(payload.platform)}</p>
-        <hr>
-        <pre style="white-space:pre-wrap;font-family:Consolas,Monaco,monospace">${esc(JSON.stringify(payload, null, 2))}</pre>
-      </div>
-    </div>
-  </div>`;
 }
 </script>
 
