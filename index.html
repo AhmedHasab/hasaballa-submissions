@@ -364,57 +364,178 @@ function firstInvalidControl(form){
   return null;
 }
 
-/* ====================== Plain-text fallback ====================== */
+/* ====================== Plain-text (كامل) ====================== */
 function buildPlainText(p){
   const a = p.analysis || {};
-  const L = [];
-  L.push("New Hasaballa AI Developer Submission");
-  L.push(`Created at: ${new Date(p.created_at||Date.now()).toUTCString()}`);
-  L.push(`Score: ${a.score ?? "n/a"} | Recommendation: ${a.recommendation ?? "n/a"}`);
-  L.push("");
-  const short = s => String(s||"").slice(0,600);
+  const toLine = (k,v)=> `${k}: ${v==null?"":String(v)}`;
+  const lines = [];
+
+  // Header + Analysis
+  lines.push("New Hasaballa AI Developer Submission");
+  lines.push(`Created at: ${new Date(p.created_at||Date.now()).toUTCString()}`);
+  lines.push(`Score: ${a.score ?? "n/a"}%`);
+  lines.push(`Recommendation: ${a.recommendation ?? "n/a"}`);
+  lines.push(`Best Tools?: ${a.isBestTools ?? "n/a"}`);
+  lines.push("");
+  lines.push("Strengths:");
+  (a.strengths&&a.strengths.length? a.strengths : ["—"]).forEach(s=>lines.push(`  + ${s}`));
+  lines.push("Weaknesses:");
+  (a.weaknesses&&a.weaknesses.length? a.weaknesses : ["—"]).forEach(s=>lines.push(`  - ${s}`));
+  lines.push("");
+
+  // Basic Info
+  lines.push("===== Basic Info =====");
   [
     ["Name", p.name], ["Company", p.company], ["Platform", p.platform],
     ["Team?", p.is_team], ["Deliver 100%?", p.deliver_quality],
     ["Match refs?", p.match_quality], ["Read refs?", p.read_refs],
-    ["Confident 100%?", p.confident_100]
-  ].forEach(([k,v]) => L.push(`${k}: ${v||""}`));
-  L.push("");
-  [
-    ["AI Experience",p.ai_experience],["AI Tools",p.ai_tools],
-    ["ImageGen",p.tools_imagegen],["Arabic Text",p.tools_arabictext],
-    ["Identity",p.tools_identity],["Voice Enhance",p.tools_audioenhance],
-    ["Voice Clone",p.tools_voiceclone],["Animation",p.tools_animation],
-    ["LipSync",p.tools_lipsync],["Chat Window",p.tools_chatwindow],
-    ["Integration",p.tools_integration],["Auto Pipeline",p.tools_auto_pipeline],
-    ["Quality Metrics",p.quality_metrics],["Training",p.training_strategy],
-    ["Test Plan",p.test_plan]
-  ].forEach(([k,v])=>{ if(v){ L.push(`--- ${k} ---`); L.push(short(v)); L.push(""); }});
-  return L.join("\n");
+    ["Confident 100%?", p.confident_100], ["Match reference quality?", p.match_reference_quality]
+  ].forEach(([k,v])=>lines.push(toLine(k,v)));
+  if (p.read_refs_comment) { lines.push(""); lines.push("Read refs comment:"); lines.push(p.read_refs_comment); }
+
+  // Clauses (1..16)
+  lines.push(""); lines.push("===== Contract Clauses (1–16) =====");
+  for (let i=1;i<=16;i++){
+    const ans = p[`cond${i}`];
+    const cmt = p[`cond${i}_comment`];
+    lines.push(toLine(`Clause ${i}`, ans));
+    if (cmt) lines.push(`  comment: ${cmt}`);
+  }
+
+  // Technical Answers (Q1..Q27)
+  lines.push(""); lines.push("===== Technical Answers =====");
+  const tech = [
+    ["Q1 Team details", p.team_details],
+    ["Q2 AI experience", p.ai_experience],
+    ["Q3 Strong AI tools", p.ai_tools],
+    ["Q4 Image generation tools", p.tools_imagegen],
+    ["Q5 Arabic text tools", p.tools_arabictext],
+    ["Q6 Identity lock tools", p.tools_identity],
+    ["Q7 Audio enhancement tools", p.tools_audioenhance],
+    ["Q8 Voice cloning & generation", p.tools_voiceclone],
+    ["Q9 Arabic dialects", p.tools_dialects],
+    ["Q10 Singing voice generation", p.tools_singing],
+    ["Q11 Integrated sound library", p.tools_soundlib],
+    ["Q12 Cinematic image animation", p.tools_animation],
+    ["Q13 SkyReels V2 opinion", p.tools_skyreels],
+    ["Q14 Lip-sync tools", p.tools_lipsync],
+    ["Q15 Chat Window / orchestration", p.tools_chatwindow],
+    ["Q16 Integration of modules", p.tools_integration],
+    ["Q17 Fallback strategy", p.tools_flexibility],
+    ["Q18 Auto pipeline (7–15 min video)", p.tools_auto_pipeline],
+    ["Q19 Ready to deliver 100%?", p.deliver_quality],
+    ["Q20 Match reference videos?", p.match_quality],
+    ["Q21 Read tasks & links?", p.read_refs],
+    ["Q22 Read refs comment", p.read_refs_comment],
+    ["Q23 Absolutely confident 100%?", p.confident_100],
+    ["Q24 Match refs at least?", p.match_reference_quality],
+    ["Q25 Quality metrics / KPIs", p.quality_metrics],
+    ["Q26 Training / fine-tuning strategy", p.training_strategy],
+    ["Q27 Comprehensive test plan", p.test_plan]
+  ];
+  tech.forEach(([k,v])=>{
+    if (v != null && String(v).trim() !== ""){
+      lines.push(""); lines.push(k + ":"); lines.push(String(v));
+    }
+  });
+
+  lines.push(""); lines.push("— Sent via EmailJS");
+  return lines.join("\n");
 }
 
-/* ====================== HTML email (واحد فقط) ====================== */
+
+/* ====================== HTML email (تحليل متقدم + كل الإجابات) ====================== */
 function buildEmailHTML(p){
   const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
   const a = p.analysis || {};
-  const row = (k,v) => `
+
+  const strengths = (a.strengths||[]).map(s=>`<li>✅ ${esc(s)}</li>`).join("") || "<li>—</li>";
+  const weaknesses = (a.weaknesses||[]).map(s=>`<li>⚠️ ${esc(s)}</li>`).join("") || "<li>—</li>";
+
+  const row = (k,v,wide=false) => `
     <tr>
-      <td style="padding:8px 10px;border:1px solid #e6e9ef;background:#fafbff;width:180px"><b>${esc(k)}</b></td>
+      <td style="padding:8px 10px;border:1px solid #e6e9ef;background:#fafbff;${wide?'width:260px':'width:200px'}"><b>${esc(k)}</b></td>
       <td style="padding:8px 10px;border:1px solid #e6e9ef">${esc(v||"")}</td>
     </tr>`;
-  const block = (title,text) => !text ? "" : `
-    <h4 style="margin:12px 0 6px">${esc(title)}</h4>
-    <div style="white-space:pre-wrap;border:1px solid #e6e9ef;background:#f7f9fc;border-radius:8px;padding:10px">${esc(text)}</div>`;
+
+  const block = (title,text) => (text && String(text).trim()!=="") ? `
+    <h4 style="margin:14px 0 6px">${esc(title)}</h4>
+    <div style="white-space:pre-wrap;border:1px solid #e6e9ef;background:#f7f9fc;border-radius:8px;padding:10px">${esc(text)}</div>` : "";
+
+  // Clauses helper
+  function clausesTable(){
+    let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
+    for (let i=1;i<=16;i++){
+      const ans = p[`cond${i}`];
+      const cmt = p[`cond${i}_comment`];
+      html += row(`Clause ${i}`, ans ?? "");
+      if (cmt && String(cmt).trim()!==""){
+        html += row(`Clause ${i} comment`, cmt, true);
+      }
+    }
+    html += `</table>`;
+    return html;
+  }
+
+  // Technical answers blocks
+  const techBlocks = [
+    ["AI Experience", p.ai_experience],
+    ["AI Tools", p.ai_tools],
+    ["Image Generation", p.tools_imagegen],
+    ["Arabic Text", p.tools_arabictext],
+    ["Identity Lock", p.tools_identity],
+    ["Audio Enhancement", p.tools_audioenhance],
+    ["Voice Cloning/Generation", p.tools_voiceclone],
+    ["Arabic Dialects", p.tools_dialects],
+    ["Singing Voice Generation", p.tools_singing],
+    ["Integrated Sound Library", p.tools_soundlib],
+    ["Cinematic Image Animation", p.tools_animation],
+    ["SkyReels V2 — Opinion", p.tools_skyreels],
+    ["Lip-sync", p.tools_lipsync],
+    ["Chat Window / Orchestration", p.tools_chatwindow],
+    ["Integration Plan", p.tools_integration],
+    ["Fallback / Replacement Strategy", p.tools_flexibility],
+    ["Auto Pipeline (7–15 min video)", p.tools_auto_pipeline],
+    ["Quality Metrics / KPIs", p.quality_metrics],
+    ["Training / Fine-tuning", p.training_strategy],
+    ["Comprehensive Test Plan", p.test_plan]
+  ].map(([t,v])=>block(t,v)).join("");
 
   return `
   <div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px">
-    <div style="max-width:900px;margin:auto;background:#fff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden">
-      <div style="background:#0d6efd;color:#fff;padding:18px 22px;border-bottom-left-radius:24px;border-bottom-right-radius:24px">
+    <div style="max-width:980px;margin:auto;background:#fff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden">
+
+      <!-- Header -->
+      <div style="background:#0d6efd;color:#fff;padding:18px 22px">
         <h2 style="margin:0;font-size:26px">New Hasaballa AI Developer Submission</h2>
         <div style="opacity:.95;margin-top:6px">Created at: ${new Date(p.created_at||Date.now()).toUTCString()}</div>
-        <div style="margin-top:8px;font-weight:600">Score: ${esc(a.score??"n/a")} — Recommendation: ${esc(a.recommendation??"n/a")}</div>
       </div>
+
       <div style="padding:18px 22px">
+
+        <!-- Analysis -->
+        <h3 style="margin:0 0 10px">📊 Analysis Summary</h3>
+        <table style="width:100%;border-collapse:collapse;margin:6px 0 14px">
+          ${row("Score %", (a.score!=null? a.score+"%":"n/a"))}
+          ${row("Recommendation", a.recommendation ?? "n/a")}
+          ${row("Best Tools?", a.isBestTools ?? "n/a")}
+        </table>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px">
+          <div>
+            <h4 style="margin:0 0 6px">✅ Strengths</h4>
+            <ul style="margin:0 0 0 18px;padding:0">${strengths}</ul>
+          </div>
+          <div>
+            <h4 style="margin:0 0 6px">⚠️ Weaknesses</h4>
+            <ul style="margin:0 0 0 18px;padding:0">${weaknesses}</ul>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
+
+        <!-- Basic Info -->
+        <h3 style="margin:0 0 10px">📝 Basic Info</h3>
         <table style="width:100%;border-collapse:collapse;margin:6px 0 14px">
           ${row("Name", p.name)}
           ${row("Company", p.company)}
@@ -422,25 +543,21 @@ function buildEmailHTML(p){
           ${row("Team?", p.is_team)}
           ${row("Deliver 100%?", p.deliver_quality)}
           ${row("Match refs?", p.match_quality)}
-          ${row("Read refs?", p.read_refs)}
-          ${row("Confident 100%?", p.confident_100)}
+          ${row("Read tasks & links?", p.read_refs)}
+          ${row("Absolutely confident 100%?", p.confident_100)}
+          ${row("Match refs at least?", p.match_reference_quality)}
+          ${p.read_refs_comment ? row("Read refs comment", p.read_refs_comment, true) : ""}
         </table>
 
-        ${block("AI Experience", p.ai_experience)}
-        ${block("AI Tools", p.ai_tools)}
-        ${block("Image Generation", p.tools_imagegen)}
-        ${block("Arabic Text", p.tools_arabictext)}
-        ${block("Identity Lock", p.tools_identity)}
-        ${block("Audio Enhancement", p.tools_audioenhance)}
-        ${block("Voice Cloning/Generation", p.tools_voiceclone)}
-        ${block("Animation", p.tools_animation)}
-        ${block("Lip-sync", p.tools_lipsync)}
-        ${block("Chat Window / Orchestration", p.tools_chatwindow)}
-        ${block("Integration Plan", p.tools_integration)}
-        ${block("Auto Pipeline (7–15 min video)", p.tools_auto_pipeline)}
-        ${block("Quality Metrics", p.quality_metrics)}
-        ${block("Training / Fine-tuning", p.training_strategy)}
-        ${block("Test Plan", p.test_plan)}
+        <!-- Clauses -->
+        <h3 style="margin:0 0 10px">📜 Contract Clauses (1–16)</h3>
+        ${clausesTable()}
+
+        <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
+
+        <!-- Technical Answers (all) -->
+        <h3 style="margin:0 0 10px">🧪 Technical Answers (Full)</h3>
+        ${techBlocks}
 
         <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
         <div style="color:#6b7280;font-size:12px">Email sent via EmailJS</div>
@@ -448,6 +565,7 @@ function buildEmailHTML(p){
     </div>
   </div>`;
 }
+
 
 /* ====================== إرسال الإيميل (موحّد) ====================== */
 async function sendEmail(payload) {
