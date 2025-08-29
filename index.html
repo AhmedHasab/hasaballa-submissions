@@ -338,17 +338,29 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 
-  document.getElementById("devForm").addEventListener("submit", async (e)=>{
+document.getElementById("devForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const form = e.target;
+
+  // لو فيه حقول ناقصة:
   if (!form.checkValidity()) {
-    form.reportValidity();
+    const firstInvalid = form.querySelector(':invalid');
+    if (firstInvalid) {
+      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // ندي الفوكس بدون ما يلغي الاسكرول
+      firstInvalid.focus({ preventScroll: true });
+      // نطلع رسالة المتصفح للحقل ده
+      firstInvalid.reportValidity();
+    } else {
+      form.reportValidity();
+    }
     return;
   }
 
-  // باقي كود الإرسال بتاعك
+  // ===== باقي كود الإرسال بتاعك هنا =====
 });
+
 
 /* ====================== EmailJS CONFIG ====================== */
 /* بدّل القيم الثلاثة دول من حسابك في EmailJS */
