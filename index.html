@@ -387,7 +387,7 @@ function firstInvalidControl(form){
   return null;
 }
 
-/* ====================== Plain-text (كامل) ====================== */
+/* ====================== Plain-text (يشمل Email + Budget + Demo) ====================== */
 function buildPlainText(p){
   const a = p.analysis || {};
   const toLine = (k,v)=> `${k}: ${v==null?"":String(v)}`;
@@ -406,13 +406,23 @@ function buildPlainText(p){
   (a.weaknesses&&a.weaknesses.length? a.weaknesses : ["—"]).forEach(s=>lines.push(`  - ${s}`));
   lines.push("");
 
-  // Basic Info
+  // ===== Basic Info (أضفنا Email + Budget/Demo) =====
   lines.push("===== Basic Info =====");
   [
-    ["Name", p.name], ["Company", p.company], ["Platform", p.platform],
-    ["Team?", p.is_team], ["Deliver 100%?", p.deliver_quality],
-    ["Match refs?", p.match_quality], ["Read refs?", p.read_refs],
-    ["Confident 100%?", p.confident_100], ["Match reference quality?", p.match_reference_quality]
+    ["Name", p.name],
+    ["Company", p.company],
+    ["Email", p.email],                       // جديد
+    ["Platform", p.platform],
+    ["Budget accept", p.budget_accept],       // جديد
+    ["Budget comment", p.budget_comment],     // جديد
+    ["Demo accept", p.demo_accept],           // جديد
+    ["Demo comment", p.demo_comment],         // جديد
+    ["Team?", p.is_team],
+    ["Deliver 100%?", p.deliver_quality],
+    ["Match refs?", p.match_quality],
+    ["Read refs?", p.read_refs],
+    ["Confident 100%?", p.confident_100],
+    ["Match reference quality?", p.match_reference_quality]
   ].forEach(([k,v])=>lines.push(toLine(k,v)));
   if (p.read_refs_comment) { lines.push(""); lines.push("Read refs comment:"); lines.push(p.read_refs_comment); }
 
@@ -466,7 +476,7 @@ function buildPlainText(p){
   return lines.join("\n");
 }
 
-/* ====================== HTML email (كلّه جداول) ====================== */
+/* ====================== HTML email (أضف Email + Budget/Demo في Basic Info) ====================== */
 function buildEmailHTML(p){
   const esc = s => String(s||"").replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
 
@@ -480,7 +490,6 @@ function buildEmailHTML(p){
       <td style="padding:8px 10px;border:1px solid #e6e9ef;${pre?'white-space:pre-wrap':''}">${esc(v||"")}</td>
     </tr>`;
 
-  // --- Clauses table (1..16) ---
   function clausesTable(){
     let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
     for (let i=1;i<=16;i++){
@@ -495,7 +504,6 @@ function buildEmailHTML(p){
     return html;
   }
 
-  // --- Q1..Q15 table ---
   function q1to15Table(){
     const items = [
       ["Q1 Team details", p.team_details],
@@ -520,7 +528,6 @@ function buildEmailHTML(p){
     return html;
   }
 
-  // --- Q16..Q24 table ---
   function q16to24Table(){
     const items = [
       ["Q16 Tools to integrate all modules", p.tools_integration],
@@ -535,14 +542,13 @@ function buildEmailHTML(p){
     ];
     let html = `<table style="width:100%;border-collapse:collapse;margin:6px 0 14px">`;
     items.forEach(([k,v],i)=>{
-      const wide = i <= 2 || i === 6; // النصوص الطويلة
+      const wide = i <= 2 || i === 6;
       html += row(k, v, {wide, pre: wide});
     });
     html += `</table>`;
     return html;
   }
 
-  // --- Q25..Q27 table (long answers) ---
   function q25to27Table(){
     const items = [
       ["Q25 Quality Metrics / KPIs", p.quality_metrics],
@@ -559,15 +565,12 @@ function buildEmailHTML(p){
   <div style="font-family:Arial,Helvetica,sans-serif;background:#f6f9fc;padding:16px">
     <div style="max-width:980px;margin:auto;background:#fff;border:1px solid #e6e9ef;border-radius:12px;overflow:hidden">
 
-      <!-- Header -->
       <div style="background:#0d6efd;color:#fff;padding:18px 22px">
         <h2 style="margin:0;font-size:26px">New Hasaballa AI Developer Submission</h2>
         <div style="opacity:.95;margin-top:6px">Created at: ${new Date(p.created_at||Date.now()).toUTCString()}</div>
       </div>
 
       <div style="padding:18px 22px">
-
-        <!-- Analysis -->
         <h3 style="margin:0 0 10px">📊 Analysis Summary</h3>
         <table style="width:100%;border-collapse:collapse;margin:6px 0 14px">
           ${row("Score %", (a.score!=null? a.score+"%":"n/a"))}
@@ -588,12 +591,17 @@ function buildEmailHTML(p){
 
         <hr style="border:none;border-top:1px solid #e6e9ef;margin:18px 0" />
 
-        <!-- Basic Info -->
+        <!-- Basic Info (محدّث) -->
         <h3 style="margin:0 0 10px">📝 Basic Info</h3>
         <table style="width:100%;border-collapse:collapse;margin:6px 0 14px">
           ${row("Name", p.name)}
           ${row("Company", p.company)}
+          ${row("Email", p.email)}                           <!-- جديد -->
           ${row("Platform", p.platform)}
+          ${row("Budget accept", p.budget_accept)}           <!-- جديد -->
+          ${row("Budget comment", p.budget_comment, {wide:true, pre:true})}
+          ${row("Demo accept", p.demo_accept)}               <!-- جديد -->
+          ${row("Demo comment", p.demo_comment, {wide:true, pre:true})}
           ${row("Team?", p.is_team)}
           ${row("Deliver 100%?", p.deliver_quality)}
           ${row("Match refs?", p.match_quality)}
@@ -603,19 +611,15 @@ function buildEmailHTML(p){
           ${p.read_refs_comment ? row("Read refs comment", p.read_refs_comment, {wide:true, pre:true}) : ""}
         </table>
 
-        <!-- Clauses 1–16 -->
         <h3 style="margin:0 0 10px">📜 Contract Clauses (1–16)</h3>
         ${clausesTable()}
 
-        <!-- Q1–Q15 -->
         <h3 style="margin:14px 0 10px">🧪 Technical Answers — Q1–Q15</h3>
         ${q1to15Table()}
 
-        <!-- Q16–Q24 -->
         <h3 style="margin:14px 0 10px">🧩 Technical Answers — Q16–Q24</h3>
         ${q16to24Table()}
 
-        <!-- Q25–Q27 -->
         <h3 style="margin:14px 0 10px">📈 Technical Answers — Q25–Q27</h3>
         ${q25to27Table()}
 
@@ -626,17 +630,17 @@ function buildEmailHTML(p){
   </div>`;
 }
 
-/* ====================== إرسال الإيميل (موحّد) ====================== */
+/* ====================== إرسال الإيميل (Reply-To = email) ====================== */
 async function sendEmail(payload) {
   const subject = "New Hasaballa AI Developer Submission";
   const params = {
-    to_email: EMAIL_TO,                      // هيتم تجاهله لو To ثابت في التمبلِت
-    subject,                                 // {{subject}}
-    message_html: buildEmailHTML(payload),   // {{{message_html}}}
-    message: buildPlainText(payload),        // احتياطي لو عندك {{message}}
-    // لتعبئة From Name و Reply-To في التمبلِت:
-    name: payload.name || "Applicant",       // {{name}}
-    email: "no-reply@hasaballa.local"        // {{email}} (غيّره لو عندك حقل إيميل)
+    to_email: EMAIL_TO,
+    subject,
+    message_html: buildEmailHTML(payload),
+    message: buildPlainText(payload),
+    name: payload.name || "Applicant",
+    email: payload.email || "no-reply@hasaballa.local",  // يستخدم إيميل المتقدّم
+    reply_to: payload.email || "no-reply@hasaballa.local" // في حالة التمبلِت يدعم reply_to
   };
   const res = await emailjs.send(
     EMAILJS_SERVICE_ID,
