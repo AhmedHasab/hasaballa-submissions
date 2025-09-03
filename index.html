@@ -53,8 +53,8 @@
     <label>Company / Team <small class="req">*</small></label>
     <input type="text" name="company" required>
 
-<label>Your E-Mail<small class="req">*</small></label>
-    <input type="text" name="name" required>
+<label>Your E-Mail <small class="req">*</small></label>
+<input type="email" name="email" required>
 
     <label for="platform">Platform <small class="req">*</small></label>
     <select name="platform" id="platform" required>
@@ -63,24 +63,25 @@
       <option value="Guru">Guru</option>
       <option value="Upwork">Upwork</option>
     </select>
-  <label for="platform">💰<b> Fixed budget: $7,500 </b><br> 
-✨ Bonus: $500 - $1000 for delivery with quality exceeding the reference videos<small class="req">*</small></label>
+<label>💰<b> Fixed budget: $7,500 </b><br>
+✨ Bonus: $500 - $1000 for delivery with quality exceeding the reference videos <small class="req">*</small></label>
 <div class="radio-group">
-  <label><input type="radio" name="cond1" value="Agree" required> Agree</label>
-  <label><input type="radio" name="cond1" value="Disagree" required> Disagree</label>
+  <label><input type="radio" name="budget_accept" value="Agree" required> Agree</label>
+  <label><input type="radio" name="budget_accept" value="Disagree" required> Disagree</label>
 </div>
 <label>Add comment (optional)</label>
-<textarea name="cond1_comment"></textarea>
+<textarea name="budget_comment"></textarea>
 
-<label for="platform">📩 Do you or your team have any 15–20 second demo 🎬 that showcases your capabilities in  
+
+<label>📩 Do you or your team have any 15–20 second demo 🎬 that showcases your capabilities in  
 🖼️ Image Generation, 🎤 Voice Cloning/Generation, 🎞️ Animation, and 👄 Lip-Sync —  
-which you can share with me to evaluate the quality and the strength of your team? <small class="req">*</small></label> 
+which you can share with me to evaluate the quality and the strength of your team? <small class="req">*</small></label>
 <div class="radio-group">
-  <label><input type="radio" name="cond1" value="Agree" required> Agree</label>
-  <label><input type="radio" name="cond1" value="Disagree" required> Disagree</label>
+  <label><input type="radio" name="demo_accept" value="Agree" required> Agree</label>
+  <label><input type="radio" name="demo_accept" value="Disagree" required> Disagree</label>
 </div>
 <label>Add comment (optional)</label>
-<textarea name="cond1_comment"></textarea>
+<textarea name="demo_comment"></textarea>
 
 
     <h3>📜 Hasaballa AI – Contract Conditions (16 Clauses)</h3>
